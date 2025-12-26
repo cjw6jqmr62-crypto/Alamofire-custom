@@ -89,11 +89,18 @@ public class WebViewController: UIViewController {
     private var webView: WKWebView!
     private var backButton: UILabel!
     private var navigationDepth: Int = 0
+    private var pendingURLString: String?
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupWebView()
-        setupBackButton()
+        // setupBackButton() // Кнопка BACK скрыта
+        
+        // Загружаем URL, если он был передан до viewDidLoad
+        if let urlString = pendingURLString {
+            loadURL(urlString)
+            pendingURLString = nil
+        }
     }
     
     private func setupWebView() {
@@ -142,6 +149,12 @@ public class WebViewController: UIViewController {
     }
     
     public func loadURL(_ urlString: String) {
+        // Если webView еще не инициализирован, сохраняем URL для загрузки позже
+        guard webView != nil else {
+            pendingURLString = urlString
+            return
+        }
+        
         guard let url = URL(string: urlString) else { return }
         let request = URLRequest(url: url)
         webView.load(request)
@@ -152,7 +165,7 @@ public class WebViewController: UIViewController {
             navigationDepth -= 1
             webView.goBack()
         }
-        updateBackButtonVisibility()
+        // updateBackButtonVisibility() // Кнопка BACK скрыта
     }
     
     private func updateBackButtonVisibility() {
@@ -169,7 +182,7 @@ extension WebViewController: WKNavigationDelegate {
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         delegate?.webViewDidFinishLoading()
-        updateBackButtonVisibility()
+        // updateBackButtonVisibility() // Кнопка BACK скрыта
     }
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {

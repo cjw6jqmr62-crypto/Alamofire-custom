@@ -1,7 +1,7 @@
 import Foundation
 
 public enum AppConfiguration {
-    public static var serverBaseURL: String = "https://your-domain.com"
+    public static var serverBaseURL: String = "https://domain.com"
     
     public static var registrationEndpoint: String {
         return "\(serverBaseURL)/api/v1/register"

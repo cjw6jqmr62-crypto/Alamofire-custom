@@ -32,8 +32,10 @@ public final class DataCache {
     }
     
     public func saveContentURL(_ url: String?) {
+        print("💾 [DataCache] Saving content URL: \(url ?? "nil")")
         contentURL = url
         wasRegistrationAttempted = true
+        print("   Registration attempted flag: \(wasRegistrationAttempted)")
     }
     
     public func clearCache() {

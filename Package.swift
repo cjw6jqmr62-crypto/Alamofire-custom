@@ -27,13 +27,12 @@ import PackageDescription
 
 let package = Package(name: "Alamofire",
                       platforms: [.macOS(.v10_13),
-                                  .iOS(.v12),
+                                  .iOS(.v17),
                                   .tvOS(.v12),
                                   .watchOS(.v4)],
                       products: [
                           .library(name: "Alamofire", targets: ["Alamofire"]),
-                          .library(name: "AlamofireDynamic", type: .dynamic, targets: ["Alamofire"]),
-                          .library(name: "Logic", targets: ["Logic"])
+                          .library(name: "AlamofireDynamic", type: .dynamic, targets: ["Alamofire"])
                       ],
                       targets: [.target(name: "Alamofire",
                                         path: "Source",
@@ -45,9 +44,6 @@ let package = Package(name: "Alamofire",
                                                                                             .macOS,
                                                                                             .tvOS,
                                                                                             .watchOS]))]),
-                                .target(name: "Logic",
-                                        dependencies: ["Alamofire"],
-                                        path: "Logic"),
                                 .testTarget(name: "AlamofireTests",
                                             dependencies: ["Alamofire"],
                                             path: "Tests",
